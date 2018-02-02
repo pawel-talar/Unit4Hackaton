@@ -3,10 +3,11 @@ import urllib.parse
 from bs4 import BeautifulSoup
 import os.path
 import logging
+import json
 
 
+config_path = os.path.abspath('../../config.json')
 base_url = 'https://en.wikipedia.org/'
-category_main_page = 'https://en.wikipedia.org/wiki/Category:Top-Priority_mathematics_articles'
 
 
 def cached():
@@ -92,15 +93,30 @@ def save_texts(dirpath, texts):
     if not os.path.exists(dirpath):
         os.makedirs(dirpath)
 
+    whole_body = ''
     for name, body in texts:
+        whole_body = whole_body + ' ' + body
         filepath = os.path.join(dirpath, "{}.txt".format(name))
         with open(filepath, 'w') as f:
-            logging.info("Saving {} to {}".format(name, filepath))
+            logging.debug("Saving {} to {}".format(name, filepath))
             f.write(body)
+    return whole_body
+
+
+def read_main_page_per_category(config_path):
+    with open(config_path, 'r') as f:
+        return json.loads(f.read())["services"]["wikipedia-urls"]
 
 
 if __name__ == '__main__':
     logging.basicConfig(level=logging.DEBUG)
-    texts = get_category_texts(category_main_page)
-    save_texts(os.path.abspath('.'), texts)
-
+    for name, url in read_main_page_per_category(config_path).items():
+        logging.info("Processing {} category".format(name))
+        dirpath = os.path.abspath('./{}'.format(name))
+        whole_body = save_texts(
+            dirpath,
+            get_category_texts(url))
+        whole_category_filepath = dirpath + '.txt'
+        with open(whole_category_filepath, 'w') as f:
+            logging.debug("Saving {} to {}".format(name, whole_category_filepath))
+            f.write(whole_body)
