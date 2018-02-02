@@ -2,6 +2,10 @@
   "services": {
     "meetup": {
 
+    },
+    "goodreads": {
+      "client_id": "dada",
+      "key": "da"
     }
   }
 }

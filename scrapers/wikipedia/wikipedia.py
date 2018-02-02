@@ -2,20 +2,28 @@ import urllib.request
 import urllib.parse
 from bs4 import BeautifulSoup
 import os.path
+import logging
 
 
 base_url = 'https://en.wikipedia.org/'
 category_main_page = 'https://en.wikipedia.org/wiki/Category:Top-Priority_mathematics_articles'
 
 
+def cached():
+    def cache(url):
+        cache_filename = 'source_cache.txt'
+        if os.path.exists(cache_filename):
+            with open(cache_filename, 'r') as f:
+                return f.read()
+        source = f(url)
+        with open('source_cache.txt', 'w') as f:
+            f.write(source.decode())
+    return cache
+
+
+#@cached
 def get_source(url):
-    cache_filename = 'source_cache.txt'
-    if os.path.exists(cache_filename):
-        with open(cache_filename, 'r') as f:
-            return f.read()
-    source = urllib.request.urlopen(url).read()
-    with open('source_cache.txt', 'w') as f:
-        f.write(source.decode())
+    logging.debug("Getting source of {}".format(url))
     return urllib.request.urlopen(url).read()
 
 
@@ -32,14 +40,67 @@ def is_article_url(url):
 
 
 def get_articles_urls(source):
+    logging.debug("Getting articles urls")
     bs = BeautifulSoup(source, 'html.parser')
     elements = bs.find(class_='mw-category-generated').find_all('a')
-    urls = [get_article_url(base_url, article_elem.get('href'))
-            for article_elem in elements]
-    return [url for url in urls if is_article_url(url)]
+    urls = (get_article_url(base_url, article_elem.get('href'))
+            for article_elem in elements)
+    return (url for url in urls if is_article_url(url))
+
+
+def is_valid(word):
+    min_length = 3
+    return word.isalpha() and len(word) > min_length
+
+
+def strip_word(word):
+    characters_to_remove = ',.'
+    for c in characters_to_remove:
+        word = word.replace(c, '')
+    return word
+
+
+def clear_text(text):
+    words = [strip_word(word).lower() for word in text.split(' ')]
+    return ' '.join([word for word in words if is_valid(word)])
+
+
+def get_article_text(source):
+    bs = BeautifulSoup(source, 'html.parser')
+    return ' '.join([clear_text(BeautifulSoup(a.text, "html.parser").text)
+                   for a in bs.find_all('p')])
+
+
+def parse_text_from_url(url):
+    logging.debug("Parsing text from {}".format(url))
+    return get_article_text(get_source(url))
+
+
+def convert_category_url_to_name(url):
+    basename = urllib.parse.urlparse(url).path.split('/')[-1]
+    return basename.lower().replace('(', '').replace(')', '')
+
+
+def get_category_texts(category_url):
+    src = get_source(category_url)
+    urls = get_articles_urls(src)
+    for url in urls:
+        yield (convert_category_url_to_name(url), parse_text_from_url(url))
+
+
+def save_texts(dirpath, texts):
+    if not os.path.exists(dirpath):
+        os.makedirs(dirpath)
+
+    for name, body in texts:
+        filepath = os.path.join(dirpath, "{}.txt".format(name))
+        with open(filepath, 'w') as f:
+            logging.info("Saving {} to {}".format(name, filepath))
+            f.write(body)
 
 
 if __name__ == '__main__':
-    src = get_source(category_main_page)
-    urls = get_articles_urls(src)
-    print(urls)
+    logging.basicConfig(level=logging.DEBUG)
+    texts = get_category_texts(category_main_page)
+    save_texts(os.path.abspath('.'), texts)
+
