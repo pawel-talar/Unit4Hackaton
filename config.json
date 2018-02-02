@@ -14,5 +14,16 @@
       "psychology": "https://en.wikipedia.org/wiki/Category:Top-importance_psychology_articles",
       "sport": "https://en.wikipedia.org/wiki/Category:Top-importance_sports_articles"
     }
+  },
+
+
+  "categories-mapping": {
+    "courses": {
+      "mathematics": ["Math and Science", "Engineering"],
+      "cs": ["Computers and Technology"],
+      "economics": ["Business and Economics"],
+      "psychology": ["Self Improvement", "Other", "Education", "Humanities", "Language and Communication"],
+      "sport": ["Lifestyle", "Sports and Fitness", "Arts and Design", "Health and Medicine"]
+    }
   }
 }
