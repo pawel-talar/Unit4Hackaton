@@ -1,0 +1,7 @@
+#!/bin/bash
+
+db=$(find "${HOME}/.mozilla/firefox/" -name "places.sqlite")
+query="select p.url from moz_historyvisits as h, moz_places as p where p.id == h.place_id order by h.visit_date;"
+urls=$(sqlite3 "${db}" "${query}")
+
+echo "${urls}" > urls
