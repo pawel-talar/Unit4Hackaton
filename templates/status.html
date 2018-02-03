@@ -1,8 +1,11 @@
 <!doctype html>
 	<tile> WebAssistant </tile>
 	<ul>
-		{% for i in len(books) %}
-		<li><a href="{{courses[i]['link']}}"> {{ books[i] }} </li>
+		{% for i in books %}
+   			 <li>{{ i }}</li>
+    	{% endfor %}
+		{% for i in len(courses) %}
+			<li> <a href="{{courses[i]['link']}}"> {{ courses[i]['name'] }} </li>
 		{% endfor %}
 	</ul>
 </html>
