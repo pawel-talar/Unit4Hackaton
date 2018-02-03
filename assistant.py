@@ -12,6 +12,11 @@ import courses_handler
 import meetup_handler
 
 config_path = os.path.abspath('./config.json')
+logging.basicConfig(level=logging.DEBUG)
+
+books_key = 'books'
+meetups_key = 'meetups'
+courses_key = 'courses'
 
 
 def get_classifier_address(config_path):
@@ -48,7 +53,7 @@ def get_courses_for_category(category):
     courses = read_all_courses()
     logging.debug("Courses: {}".format(courses))
     mapped_categories = map_courses_category(category)
-    return [course for course in courses if course["category"] in mapped_categories]
+    return courses_handler.request(category)
 
 
 r = None
@@ -67,13 +72,13 @@ def initialize():
 
 @app.route('/', methods=['GET'])
 def status():
-    books = ['a']
-    courses = [{
-        "name": "iTheatre",
-        "url": "https://www.openlearning.com/courses/itheatre",
-        "category": "Other"
-    }]
-    meetups = []
+    books = [x.decode() for x in set(r.lrange(books_key, 0, 5))]
+    courses = [json.loads(x) for x in set(r.lrange(courses_key, 0, 5))]
+    meetups = [json.loads(x) for x in set(r.lrange(meetups_key, 0, 5))]
+    logging.debug(books)
+    logging.debug(courses)
+    logging.debug(meetups)
+
     return render_template('status.html', books=books, courses=courses,
                            meetups=meetups)
 
@@ -81,13 +86,15 @@ def status():
 @app.route('/submit', methods=['POST'])
 def submit_url():
     url = request.data.decode()
-    print(url)
     host, port = get_classifier_address('./config.json')
     page_category = get_page_category(host, port, url)
-    books = get_book_for_category(page_category)
-    courses = get_courses_for_category(page_category)
+    book = get_book_for_category(page_category)[0]
+    course = get_courses_for_category(page_category)[0]
+    meetup = list(meetup_handler.handler(page_category))[0]
+    logging.debug("Book: {}".format(book))
+    logging.debug("Course: {}".format(course))
+    logging.debug("Meetup: {}".format(meetup))
+    r.lpush(books_key, book)
+    r.lpush(courses_key, json.dumps(course))
+    r.lpush(meetups_key, json.dumps(meetup))
     return "url submitted", 200
-
-
-if __name__ == '__main__':
-    logging.basicConfig(level=logging.DEBUG)
