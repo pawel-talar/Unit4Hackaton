@@ -1,0 +1,30 @@
+python. Python- 1992
+Meet other local Python Programming Language enthusiasts!
+
+python-web-development. Python Web Developmenthttps://secure.meetup.com/meetup_api/console/?path=/2/categories- 509
+Find out what's happening in Python Web Development Meetup groups around the world and start meeting up with the ones near you.
+
+data-science-using-python. Data Science using Python- 432
+Find out what's happening in Data Science using Python Meetup groups around the world and start meeting up with the ones near you.
+
+open-source-python. Open source python- 284
+Find out what's happening in Open source python Meetup groups around the world and start meeting up with the ones near you.
+
+functional-programming-in-python. Functional Programming in Python- 183
+Find out what's happening in Functional Programming in Python Meetup groups around the world and start meeting up with the ones near you.
+
+learn-python-the-hard-way. Learn Python The Hard Way- 68
+Find out what's happening in Learn Python The Hard Way Meetup groups around the world and start meeting up with the ones near you.
+
+stackless-python. Stackless Python- 29
+Find out what's happening in Stackless Python Meetup groups around the world and start meeting up with the ones near you.
+
+python-plug-ins-for-blender. Python Plug-Ins for Blender- 2
+Find out what's happening in Python Plug-Ins for Blender Meetup groups around the world and start meeting up with the ones near you.
+
+c-java-scala-f-swift-python-js-ts-go-c-clojure. C#/Java/Scala/F#/Swift/Python/JS/TS/Go/C++/Clojure- 1
+Find out what's happening in C#/Java/Scala/F#/Swift/Python/JS/TS/Go/C++/Clojure Meetup groups around the world and start meeting up with the ones near you.
+
+pl-python. PL/Python- 0
+Find out what's happening in PL/Python Meetup groups around the world and start meeting up with the ones near you.
+
