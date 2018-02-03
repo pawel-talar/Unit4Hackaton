@@ -10,6 +10,8 @@ name = "pypi"
 requests = "*"
 "beautifulsoup4" = "*"
 lxml = "*"
+nltk = "*"
+flask = "*"
 
 
 [dev-packages]

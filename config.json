@@ -12,11 +12,25 @@
       "sport" : [" The Winning Way: Learnings from sport for managers "," The Sport of Romance "," Body Mind Mastery: Training for Sport and Life "," Hey Rube: Blood Sport, the Bush Doctrine, and the Downward Spiral of Dumbness: Modern History from the ESPN.com Sports Desk "," Not a Hazardous Sport "," Hunting for Sport "," Tout, tout de suite "," The Gladiators: History's Most Deadly Sport "," Blood Sport "," Blood Sport (Shadowrun, #29) "," The Talent Code: Unlocking the Secret of Skill in Maths, Art, Music, Sport, and Just About Everything Else "," Abby the Bad Sport (The Baby-Sitters Club, #110) "," Soccernomics: Why England Loses, Why Spain, Germany, and Brazil Win, and Why the U.S., Japan, Australia, Turkey--and Even Iraq--Are Destined to Become the Kings of the World's Most Popular Sport "," The Essentials of Sport and Exercise Nutrition "," Contact Sport "," Pose Method of Running (Dr. Romanov's Sport Education) "," Pedestrianism: When Watching People Walk Was America's Favorite Spectator Sport "," In Pursuit of Excellence: How to Win in Sport and Life Through Mental Training "," The Meaning Of Sport "," Wallace: The Underdog Who Conquered a Sport, Saved a Marriage, and Championed Pit Bulls-- One Flying Disc at a Time "]
     },
     "wikipedia-urls": {
-      "mathematics": "https://en.wikipedia.org/wiki/Category:Top-Priority_mathematics_articles",
-      "cs": "https://en.wikipedia.org/wiki/Category:Top-importance_Computer_science_articles",
-      "economics": "https://en.wikipedia.org/wiki/Category:Top-importance_Economics_articles",
-      "psychology": "https://en.wikipedia.org/wiki/Category:Top-importance_psychology_articles",
-      "sport": "https://en.wikipedia.org/wiki/Category:Top-importance_sports_articles"
+      "mathematics": [
+        "https://en.wikipedia.org/wiki/Category:Top-Priority_mathematics_articles"
+        ],
+      "cs": [
+        "https://en.wikipedia.org/wiki/Category:Top-importance_Computer_science_articles"
+        ],
+      "economics": [
+        "https://en.wikipedia.org/wiki/Category:Top-importance_Economics_articles"
+      ],
+      "psychology": [
+        "https://en.wikipedia.org/wiki/Category:Top-importance_psychology_articles"
+      ],
+      "sport": [
+        "https://en.wikipedia.org/wiki/Category:Top-importance_sports_articles",
+        "https://en.wikipedia.org/wiki/Category:Terminology_used_in_multiple_sports"
+      ],
+      "linguistics": [
+        "https://en.wikipedia.org/wiki/Category:Top-importance_Linguistics_articles"
+      ]
     }
   },
   "categories-mapping": {
@@ -27,5 +41,12 @@
       "psychology": ["Self Improvement", "Other", "Education", "Humanities", "Language and Communication"],
       "sport": ["Lifestyle", "Sports and Fitness", "Arts and Design", "Health and Medicine"]
     }
+  },
+  "meetup": {
+    "mathematics": [6],
+    "cs": [15, 34],
+    "economics:": [2, 4, 13],
+    "psychology": [18, 1, 8, 10, 12, 17, 21, 22, 24, 25, 28, 29, 33, 36, 20],
+    "sport": [32, 23, 14, 11, 9, 5, 3, 26, 27, 30, 31]
   }
 }
