@@ -46,16 +46,14 @@ def get_token(code):
 
 if __name__ == '__main__':  
     token = '0627f2b21779b335558ca93737cb62a5'
-    categories = get_categories(token)
     groups = get_groups(token)
     file = open('data.txt', 'w')
     size = len(groups)
     l = 0
     for i in range(size):
         x = groups[i]['name']
-        y = groups[i]['category']['id']
-        if y >= 0 and y <= 23:    
-            file.write(categories[y]['name']+" -- ")
+        y = groups[i]['next_event']['name']    
+        file.write(y + " -- ")
         file.write(str(x)+'\n')
     
     file.closed
