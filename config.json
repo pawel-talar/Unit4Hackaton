@@ -1,7 +1,16 @@
 {
   "services": {
     "meetup": {
-
     }
-  }
+  },
+  "goodreads": {
+      "client_id": "jnndsEnRMpp5ucpoT69qQ",
+      "key": "k8xFycWR0IRBLVK9ZRKYECRL4KVENDkr1evCPWQ",
+      "mathematics": "mathematics",
+      "economics" : "economics",
+      "cs": "computer science",
+      "psychology" : "psychology",
+      "sport" : "sport"
+    }
+
 }
