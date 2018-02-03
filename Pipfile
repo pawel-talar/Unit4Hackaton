@@ -13,6 +13,7 @@ lxml = "*"
 nltk = "*"
 flask = "*"
 goodreads = "*"
+redis = "*"
 
 
 [dev-packages]

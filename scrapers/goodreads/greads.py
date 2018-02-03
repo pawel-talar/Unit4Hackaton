@@ -3,6 +3,7 @@ import json
 
 path = '../../config.json'
 
+
 def get_client():
     with open(path, 'r') as f:
         dict = json.load(f)
