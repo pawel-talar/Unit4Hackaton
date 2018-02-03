@@ -4,28 +4,11 @@ from bs4 import BeautifulSoup
 import os.path
 import logging
 import json
+from scrapers.utils import *
 
 
 config_path = os.path.abspath('../../config.json')
 base_url = 'https://en.wikipedia.org/'
-
-
-def cached():
-    def cache(url):
-        cache_filename = 'source_cache.txt'
-        if os.path.exists(cache_filename):
-            with open(cache_filename, 'r') as f:
-                return f.read()
-        source = f(url)
-        with open('source_cache.txt', 'w') as f:
-            f.write(source.decode())
-    return cache
-
-
-#@cached
-def get_source(url):
-    logging.debug("Getting source of {}".format(url))
-    return urllib.request.urlopen(url).read()
 
 
 def remove_talk_prefix(s):
@@ -47,29 +30,6 @@ def get_articles_urls(source):
     urls = (get_article_url(base_url, article_elem.get('href'))
             for article_elem in elements)
     return (url for url in urls if is_article_url(url))
-
-
-def is_valid(word):
-    min_length = 3
-    return word.isalpha() and len(word) > min_length
-
-
-def strip_word(word):
-    characters_to_remove = ',.'
-    for c in characters_to_remove:
-        word = word.replace(c, '')
-    return word
-
-
-def clear_text(text):
-    words = [strip_word(word).lower() for word in text.split(' ')]
-    return ' '.join([word for word in words if is_valid(word)])
-
-
-def get_article_text(source):
-    bs = BeautifulSoup(source, 'html.parser')
-    return ' '.join([clear_text(BeautifulSoup(a.text, "html.parser").text)
-                   for a in bs.find_all('p')])
 
 
 def parse_text_from_url(url):
@@ -109,12 +69,13 @@ def read_main_page_per_category(config_path):
 
 
 if __name__ == '__main__':
-    logging.basicConfig(level=logging.DEBUG)
-    for name, url in read_main_page_per_category(config_path).items():
-        logging.info("Processing {} category".format(name))
-        dirpath = os.path.abspath('./{}'.format(name))
+    logging.basicConfig(level=logging.INFO)
 
-        if not os.path.exists(dirpath):
+    for name, urls in read_main_page_per_category(config_path).items():
+        for url in urls:
+            logging.info("Processing {} category".format(name))
+            dirpath = os.path.abspath('./{}'.format(name))
+
             whole_body = save_texts(
                 dirpath,
                 get_category_texts(url))
