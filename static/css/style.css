@@ -1,0 +1,16 @@
+html, body * {
+    background-color: #b8b8b8;
+    color: #0000AF;
+    max-width: 11;
+    margin: auto;
+}
+
+ul.links {
+    list-style-type: none;
+    list-style-image: none;
+    color:  #02453A;
+    border: solid #11557C;
+    padding: 5px;
+    max-height: 100px;
+    margin: 10px;
+}

@@ -1,21 +1,26 @@
 <!doctype html>
-	<tile> WebAssistant </tile>
-    <h2>Recommended books</h2>
-	<ul>
-		{% for i in books %}
-   			 <li>{{ i }}</li>
-    	{% endfor %}
-	</ul>
-    <h2>Recommended courses</h2>
-	<ul>
-		{% for i in courses %}
-        <li> <a href="{{i['url']}}"> {{ i['name'] }}</a></li>
-		{% endfor %}
-	</ul>
-    <h2>Recommended meetups</h2>
-	<ul>
-		{% for i in meetups %}
-			<li> <a href="{{i[0]}}"> {{ i[1] }} </li>
-		{% endfor %}
-	</ul>
+	<head>
+		<link rel="stylesheet" href="../static/css/style.css">
+	</head>
+	<body>
+		<tile> WebAssistant </tile>
+	    <h2>Recommended books</h2>
+		<ul class="links">
+			{% for i in books %}
+	   			 <li>{{ i }}</li>
+	    	{% endfor %}
+		</ul>
+	    <h2>Recommended courses</h2>
+		<ul class="links">
+			{% for i in courses %}
+	        <li> <a href="{{i['url']}}"> {{ i['name'] }}</a></li>
+			{% endfor %}
+		</ul>
+	    <h2>Recommended meetups</h2>
+		<ul class="links">
+			{% for i in meetups %}
+				<li> <a href="{{i[0]}}"> {{ i[1] }} </li>
+			{% endfor %}
+		</ul>
+	</body>
 </html>
