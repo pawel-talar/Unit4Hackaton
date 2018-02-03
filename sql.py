@@ -33,7 +33,7 @@ ORDER BY h.visit_date"""
 
 
 if __name__ == '__main__':
-    delay = 5
+    delay = 2
     logging.basicConfig(level=logging.DEBUG)
     print(history_path)
     conn = connect_to_sqlite(history_path)
