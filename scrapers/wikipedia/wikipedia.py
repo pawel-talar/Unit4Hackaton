@@ -113,10 +113,13 @@ if __name__ == '__main__':
     for name, url in read_main_page_per_category(config_path).items():
         logging.info("Processing {} category".format(name))
         dirpath = os.path.abspath('./{}'.format(name))
-        whole_body = save_texts(
-            dirpath,
-            get_category_texts(url))
-        whole_category_filepath = dirpath + '.txt'
-        with open(whole_category_filepath, 'w') as f:
-            logging.debug("Saving {} to {}".format(name, whole_category_filepath))
-            f.write(whole_body)
+
+        if not os.path.exists(dirpath):
+            whole_body = save_texts(
+                dirpath,
+                get_category_texts(url))
+            if len(whole_body) > 0:
+                whole_category_filepath = dirpath + '.txt'
+                with open(whole_category_filepath, 'w') as f:
+                    logging.debug("Saving {} to {}".format(name, whole_category_filepath))
+                    f.write(whole_body)
