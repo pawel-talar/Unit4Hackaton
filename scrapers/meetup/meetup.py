@@ -14,15 +14,15 @@ def status():
 
 
 def get_groups(token):
-    url = 'https://api.meetup.com/find/groups?zip=11321&radius=1&category=,&upcoming_events=true&order=members'
+    url = 'https://api.meetup.com/find/groups?zip=11321&radius=1&category=,&upcoming_events=true&order=most_active'
     headers = {"Authorization": "Bearer {}".format(token)}
     r = requests.get(url, headers=headers)
     d = r.text
     table_of_names = json.loads(d)
     return table_of_names
 
-def get_categories(token):
-    url = 'https://api.meetup.com//find/topic_categories?zip=11211&'
+def get_topics(token):
+    url = 'https://api.meetup.com//find/topics?zip=11211&page=100&query="computer science"'
     headers = {"Authorization": "Bearer {}".format(token)}
     r = requests.get(url, headers=headers)
     d = r.text
@@ -46,14 +46,22 @@ def get_token(code):
 
 if __name__ == '__main__':  
     token = '0627f2b21779b335558ca93737cb62a5'
+    topics = get_topics(token)
     groups = get_groups(token)
     file = open('data.txt', 'w')
     size = len(groups)
     l = 0
-    for i in range(size):
-        x = groups[i]['name']
-        y = groups[i]['next_event']['name']    
-        file.write(y + " -- ")
-        file.write(str(x)+'\n')
+    for i in range(10):
+        x = topics[i]['urlkey']
+        y = topics[i]['name']
+        count = topics[i]['group_count']
+        z = topics[i]['description']
+        file.write(str(x) + ". " + str(y) + "- " + str(count) + "\n" + str(z) + "\n")
+
+ #   for i in range(size):
+  #      x = groups[i]['name']
+   #     y = groups[i]['next_event']['name']    
+    #    file.write(y + " -- ")
+     #   file.write(str(x)+'\n')
     
     file.closed
