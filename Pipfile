@@ -12,6 +12,7 @@ requests = "*"
 lxml = "*"
 nltk = "*"
 flask = "*"
+goodreads = "*"
 
 
 [dev-packages]

@@ -15,10 +15,12 @@ def get_client():
 
     return gc
 
-def search_books(category, n):
+
+def search_books(category, n, path):
     with open(path, 'r') as f:
         dict = json.load(f)['services']['goodreads']
     return dict[category][:n]
+
 
 if __name__ == '__main__':
     with open(path, 'r') as f:
