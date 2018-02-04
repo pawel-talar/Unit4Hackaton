@@ -56,5 +56,9 @@
   "redis": {
     "host": "localhost",
     "port": 6379
+  },
+  "assistant": {
+    "host": "http://localhost",
+    "port": 5001
   }
 }
