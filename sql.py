@@ -31,7 +31,7 @@ ORDER BY h.visit_date"""
     return list(to_return)
 
 
-if __name__ == '__main__':
+def main():
     delay = 2
     logging.basicConfig(level=logging.DEBUG)
     print(history_path)
@@ -49,3 +49,7 @@ if __name__ == '__main__':
             except requests.ConnectionError as e:
                 logging.error(
                     "Assistant service not available: {}".format(str(e)))
+
+
+if __name__ == '__main__':
+    main()
