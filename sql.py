@@ -5,7 +5,6 @@ import time
 from os.path import expanduser
 import requests
 
-
 profile_name = 'mxhml4y1.default'
 history_path = expanduser("~") + '/.mozilla/firefox/' + profile_name + \
                '/places.sqlite'
@@ -18,6 +17,7 @@ def connect_to_sqlite(db_path):
 
 already_visited = set()
 
+
 def get_urls(conn):
     global already_visited
     query_str = """
@@ -28,7 +28,6 @@ ORDER BY h.visit_date"""
     c = conn.cursor()
     urls = set([row[0] for row in c.execute(query_str)])
     to_return = urls - already_visited
-    already_visited = already_visited | to_return
     return list(to_return)
 
 
@@ -44,5 +43,9 @@ if __name__ == '__main__':
             ru = 'http://localhost:5001/submit'
             headers = {"Content-Type": "text/plain"}
             logging.info("ru: {} data: {} headers: {}".format(ru, url, headers))
-            requests.post(ru, data=url, headers=headers)
-
+            try:
+                r = requests.post(ru, data=url, headers=headers)
+                already_visited = already_visited | set([url])
+            except requests.ConnectionError as e:
+                logging.error(
+                    "Assistant service not available: {}".format(str(e)))
