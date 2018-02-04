@@ -8,7 +8,7 @@ from flask import render_template
 import redis
 
 import scrapers.goodreads.greads
-import courses_handler
+from unit4_hackaton import courses_handler
 import meetup_handler
 
 config_path = os.path.abspath('./config.json')
