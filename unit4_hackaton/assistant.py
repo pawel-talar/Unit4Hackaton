@@ -7,11 +7,18 @@ from flask import request
 from flask import render_template
 import redis
 
-import scrapers.goodreads.greads
+from unit4_hackaton.scrapers.goodreads import greads
 from unit4_hackaton import courses_handler
-import meetup_handler
+from unit4_hackaton import meetup_handler
 
+app = Flask(__name__)
 config_path = os.path.abspath('./config.json')
+logging.basicConfig(level=logging.DEBUG)
+with open(config_path, 'r') as f:
+    redis_data = json.loads(f.read())["redis"]
+    r = redis.StrictRedis(host=redis_data["host"], port=redis_data["port"],
+                          db=0, socket_connect_timeout=2)
+
 logging.basicConfig(level=logging.DEBUG)
 
 books_key = 'books'
@@ -37,7 +44,6 @@ def get_book_for_category(category):
 
 def read_all_courses():
     path = './scrapers/openlearning/output.json'
-    courses = None
     with open(path, 'r') as f:
         courses = json.loads(f.read())
     return courses
@@ -54,20 +60,6 @@ def get_courses_for_category(category):
     logging.debug("Courses: {}".format(courses))
     mapped_categories = map_courses_category(category)
     return courses_handler.request(category)
-
-
-r = None
-
-app = Flask(__name__)
-
-
-@app.before_first_request
-def initialize():
-    global r
-    with open(config_path, 'r') as f:
-        redis_data = json.loads(f.read())["redis"]
-        r = redis.StrictRedis(host=redis_data["host"], port=redis_data["port"],
-                              db=0)
 
 
 @app.route('/', methods=['GET'])
